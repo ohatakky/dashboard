@@ -1,8 +1,8 @@
 package usecase
 
 import (
-	"github.com/ohatakky/dashboard/atcoder"
 	"github.com/ohatakky/dashboard/atcoder/repository"
+	"github.com/ohatakky/dashboard/pkg/atcoder"
 )
 
 type AtcoderUsecase interface {
