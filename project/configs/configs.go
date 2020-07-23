@@ -11,9 +11,14 @@ var E *Env
 
 type Env struct {
 	Atcoder Atcoder `yaml:"atcoder"`
+	Note    Note    `yaml:"note"`
 }
 
 type Atcoder struct {
+	User string `yaml:"user"`
+}
+
+type Note struct {
 	User string `yaml:"user"`
 }
 
