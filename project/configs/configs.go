@@ -12,6 +12,7 @@ var E *Env
 type Env struct {
 	Atcoder Atcoder `yaml:"atcoder"`
 	Note    Note    `yaml:"note"`
+	Life    Life    `yaml:"life"`
 }
 
 type Atcoder struct {
@@ -20,6 +21,11 @@ type Atcoder struct {
 
 type Note struct {
 	User string `yaml:"user"`
+}
+
+type Life struct {
+	SpreadsheetID string `yaml:"spreadsheet_id"`
+	SheetName     string `yaml:"sheet_name"`
 }
 
 func InitConfigs() {
