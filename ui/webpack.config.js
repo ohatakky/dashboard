@@ -2,13 +2,13 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: './src/app/app.tsx',
+  entry: './src/App.tsx',
   plugins: [
     new CleanWebpackPlugin({
       cleanAfterEveryBuildPatterns: ['public/build']
     }),
     new HtmlWebpackPlugin({
-      template: 'src/templates/index.html'
+      template: 'src/index.html'
     }),
   ],
   output: {
@@ -22,5 +22,9 @@ module.exports = {
     rules: [
       { test: /\.tsx?$/, loader: 'ts-loader' }
     ]
-  }
+  },
+  devServer: {
+    historyApiFallback: true,
+    port: 3001
+  },
 }
