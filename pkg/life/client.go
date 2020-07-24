@@ -79,6 +79,10 @@ func (c *Client) Records() ([]Record, error) {
 		return nil, err
 	}
 	r := csv.NewReader(strings.NewReader(string(b)))
+	_, err = r.Read()
+	if err != nil {
+		return nil, err
+	}
 	res := make([]Record, 0)
 	for {
 		record, err := r.Read()
