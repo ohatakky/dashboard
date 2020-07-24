@@ -6,8 +6,8 @@ import (
 	"io"
 	"io/ioutil"
 	"net/http"
+	"os"
 	"strconv"
-	"strings"
 	"time"
 
 	"github.com/ohatakky/dashboard/project/configs"
@@ -60,23 +60,44 @@ type Record struct {
 	Vitamin     bool          // ビタミン剤
 }
 
-func (c *Client) Records() ([]Record, error) {
+func (c *Client) download() error {
 	uFmt := "https://docs.google.com/spreadsheets/d/%s/gviz/tq?tqx=out:csv&sheet=%s"
 	u := fmt.Sprintf(uFmt, configs.E.Life.SpreadsheetID, configs.E.Life.SheetName)
 	resp, err := http.Get(u)
 	if err != nil {
-		return nil, err
+		return err
 	}
 	defer resp.Body.Close()
 
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
+		return err
+	}
+	f, err := os.OpenFile("./life.csv", os.O_WRONLY|os.O_CREATE, 0666)
+	if err != nil {
+		return err
+	}
+	defer f.Close()
+
+	_, err = f.Write(body)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *Client) Records() ([]Record, error) {
+	err := c.download()
+	if err != nil {
 		return nil, err
 	}
-	// todo: save to file
 
-	// todo: read from file
-	r := csv.NewReader(strings.NewReader(string(body)))
+	ff, err := os.OpenFile("./life.csv", os.O_RDONLY, 0666)
+	if err != nil {
+		return nil, err
+	}
+	defer ff.Close()
+	r := csv.NewReader(ff)
 	_, err = r.Read()
 	if err != nil {
 		return nil, err
