@@ -1,3 +1,4 @@
 server/env.yaml
 ui/public
 ui/node_modules
+ui/.vscode
