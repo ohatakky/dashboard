@@ -1,8 +1,8 @@
 package usecase
 
 import (
-	"github.com/ohatakky/dashboard/note/repository"
-	"github.com/ohatakky/dashboard/pkg/note"
+	"github.com/ohatakky/dashboard/server/note/repository"
+	"github.com/ohatakky/dashboard/server/pkg/note"
 )
 
 type NoteUsecase interface {

@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/ohatakky/dashboard/note/usecase"
+	"github.com/ohatakky/dashboard/server/note/usecase"
 )
 
 type CmdNoteHandler struct {

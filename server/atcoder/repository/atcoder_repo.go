@@ -1,7 +1,7 @@
 package repository
 
 import (
-	"github.com/ohatakky/dashboard/pkg/atcoder"
+	"github.com/ohatakky/dashboard/server/pkg/atcoder"
 )
 
 type AtcoderRepository interface {

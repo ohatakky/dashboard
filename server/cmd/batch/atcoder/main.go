@@ -1,11 +1,11 @@
 package main
 
 import (
-	"github.com/ohatakky/dashboard/atcoder/handler/cmd"
-	"github.com/ohatakky/dashboard/atcoder/repository"
-	"github.com/ohatakky/dashboard/atcoder/usecase"
-	"github.com/ohatakky/dashboard/pkg/atcoder"
-	"github.com/ohatakky/dashboard/project/configs"
+	"github.com/ohatakky/dashboard/server/atcoder/handler/cmd"
+	"github.com/ohatakky/dashboard/server/atcoder/repository"
+	"github.com/ohatakky/dashboard/server/atcoder/usecase"
+	"github.com/ohatakky/dashboard/server/pkg/atcoder"
+	"github.com/ohatakky/dashboard/server/project/configs"
 )
 
 func main() {

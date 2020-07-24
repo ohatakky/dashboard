@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/ohatakky/dashboard/atcoder/usecase"
+	"github.com/ohatakky/dashboard/server/atcoder/usecase"
 )
 
 type CmdAtcoderHandler struct {

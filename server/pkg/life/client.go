@@ -10,7 +10,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/ohatakky/dashboard/project/configs"
+	"github.com/ohatakky/dashboard/server/project/configs"
 )
 
 type Client struct {

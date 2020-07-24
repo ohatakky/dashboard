@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/ohatakky/dashboard/pkg/life"
-	"github.com/ohatakky/dashboard/project/configs"
+	"github.com/ohatakky/dashboard/server/pkg/life"
+	"github.com/ohatakky/dashboard/server/project/configs"
 )
 
 func main() {

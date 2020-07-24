@@ -1,6 +1,6 @@
 package repository
 
-import "github.com/ohatakky/dashboard/pkg/note"
+import "github.com/ohatakky/dashboard/server/pkg/note"
 
 type NoteRepository interface {
 	GetPosts() (*note.Posts, error)

@@ -1,4 +1,4 @@
-module github.com/ohatakky/dashboard
+module github.com/ohatakky/dashboard/server
 
 go 1.14
 
