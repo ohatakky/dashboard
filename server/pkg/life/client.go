@@ -39,7 +39,7 @@ const (
 )
 
 type Record struct {
-	Date        time.Time     // 日付
+	Date        TimeNull      // 日付
 	Condition   int           // 調子[10]
 	Rising      time.Time     // 起床
 	LightOff    time.Time     // 消灯
@@ -73,6 +73,17 @@ func (c *Client) downloads() ([]byte, error) {
 	return body, nil
 }
 
+// todo
+type TimeNull struct {
+	IsNull bool
+	time.Time
+}
+
+type DurationNull struct {
+	IsNull bool
+	time.Duration
+}
+
 func (c *Client) Records() ([]Record, error) {
 	b, err := c.downloads()
 	if err != nil {
@@ -96,12 +107,16 @@ func (c *Client) Records() ([]Record, error) {
 		// mappings to struct
 		tmp := Record{}
 		for i, v := range record {
+			var null bool
 			if v == "" {
-				continue
+				null = true
 			}
 			switch i {
 			case 0:
-				tmp.Date, err = time.Parse(dateLayout, v)
+				if null {
+					tmp.Date.IsNull = true
+				}
+				tmp.Date.Time, err = time.Parse(dateLayout, v)
 				if err != nil {
 					return nil, err
 				}
