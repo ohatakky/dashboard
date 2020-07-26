@@ -1,16 +1,8 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import Dashboard from "./components/pages/Dashboard";
 
-const App: React.FC<{ compiler: string; framework: string }> = (props) => {
-  return (
-    <div>
-      <div>{props.compiler}</div>
-      <div>{props.framework}</div>
-    </div>
-  );
+const App: React.FC = () => {
+  return <Dashboard />;
 };
 
-ReactDOM.render(
-  <App compiler="TypeScript" framework="React" />,
-  document.getElementById("root")
-);
+export default App;
