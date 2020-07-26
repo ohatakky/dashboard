@@ -4,9 +4,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Title from "../../../common/Title";
 
-function preventDefault(event) {
+const preventDefault = (event) => {
   event.preventDefault();
-}
+};
 
 const useStyles = makeStyles({
   depositContext: {

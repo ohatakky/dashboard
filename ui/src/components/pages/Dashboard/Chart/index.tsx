@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import { useTheme } from "@material-ui/core/styles";
 import {
   LineChart,
@@ -10,10 +10,9 @@ import {
 } from "recharts";
 import Title from "../../../common/Title"; // todo: root-import
 
-// Generate Sales Data
-function createData(time, amount) {
+const createData = (time, amount) => {
   return { time, amount };
-}
+};
 
 const data = [
   createData("00:00", 0),
@@ -27,7 +26,7 @@ const data = [
   createData("24:00", undefined),
 ];
 
-export default function Chart() {
+const Chart: FC = () => {
   const theme = useTheme();
 
   return (
@@ -63,4 +62,6 @@ export default function Chart() {
       </ResponsiveContainer>
     </React.Fragment>
   );
-}
+};
+
+export default Chart;

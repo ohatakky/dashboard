@@ -8,10 +8,9 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Title from "../../../common/Title";
 
-// Generate Order Data
-function createData(id, date, name, shipTo, paymentMethod, amount) {
+const createData = (id, date, name, shipTo, paymentMethod, amount) => {
   return { id, date, name, shipTo, paymentMethod, amount };
-}
+};
 
 const rows = [
   createData(
@@ -56,9 +55,9 @@ const rows = [
   ),
 ];
 
-function preventDefault(event) {
+const preventDefault = (event) => {
   event.preventDefault();
-}
+};
 
 const useStyles = makeStyles((theme) => ({
   seeMore: {
