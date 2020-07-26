@@ -21,8 +21,8 @@ import NotificationsIcon from "@material-ui/icons/Notifications";
 // todo: root imports
 import { mainListItems, secondaryListItems } from "../../common/List";
 import Chart from "./Chart";
-// import Deposits from "./Deposits";
-// import Orders from "./Orders";
+import Deposit from "./Deposit";
+import Order from "./Order";
 
 const Copyright: FC = () => {
   return (
@@ -30,7 +30,8 @@ const Copyright: FC = () => {
       {"Copyright © "}
       <Link color="inherit" href="https://material-ui.com/">
         Your Website
-      </Link>{" "}
+      </Link>
+      {" "}
       {new Date().getFullYear()}
       {"."}
     </Typography>
@@ -144,7 +145,7 @@ const Dashboard: FC = () => {
             onClick={handleDrawerOpen}
             className={clsx(
               classes.menuButton,
-              open && classes.menuButtonHidden
+              open && classes.menuButtonHidden,
             )}
           >
             <MenuIcon />
@@ -194,11 +195,15 @@ const Dashboard: FC = () => {
             </Grid>
             {/* Recent Deposits */}
             <Grid item xs={12} md={4} lg={3}>
-              <Paper className={fixedHeightPaper}>{/* <Deposits /> */}</Paper>
+              <Paper className={fixedHeightPaper}>
+                <Deposit />
+              </Paper>
             </Grid>
             {/* Recent Orders */}
             <Grid item xs={12}>
-              <Paper className={classes.paper}>{/* <Orders /> */}</Paper>
+              <Paper className={classes.paper}>
+                <Order />
+              </Paper>
             </Grid>
           </Grid>
           <Box pt={4}>
