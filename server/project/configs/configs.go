@@ -13,6 +13,7 @@ type Env struct {
 	Atcoder Atcoder `yaml:"atcoder"`
 	Note    Note    `yaml:"note"`
 	Life    Life    `yaml:"life"`
+	Twitter Twitter `yaml:"twitter"`
 }
 
 type Atcoder struct {
@@ -24,6 +25,12 @@ type Note struct {
 }
 
 type Life struct {
+	SpreadsheetID string `yaml:"spreadsheet_id"`
+	SheetName     string `yaml:"sheet_name"`
+}
+
+type Twitter struct {
+	User          string `yaml:"user"`
 	SpreadsheetID string `yaml:"spreadsheet_id"`
 	SheetName     string `yaml:"sheet_name"`
 }

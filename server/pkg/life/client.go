@@ -9,8 +9,6 @@ import (
 	"strconv"
 	"strings"
 	"time"
-
-	"github.com/ohatakky/dashboard/server/project/configs"
 )
 
 type Client struct {
@@ -59,7 +57,7 @@ type Record struct {
 
 func (c *Client) downloads() ([]byte, error) {
 	uFmt := "https://docs.google.com/spreadsheets/d/%s/gviz/tq?tqx=out:csv&sheet=%s"
-	u := fmt.Sprintf(uFmt, configs.E.Life.SpreadsheetID, configs.E.Life.SheetName)
+	u := fmt.Sprintf(uFmt, c.spreadsheetID, c.sheetName)
 	resp, err := http.Get(u)
 	if err != nil {
 		return nil, err
@@ -73,7 +71,8 @@ func (c *Client) downloads() ([]byte, error) {
 	return body, nil
 }
 
-// todo
+// todo: sqlboilerのnullパッケージのようなやつ
+// IsValidでリファクタ
 type TimeNull struct {
 	IsNull bool
 	time.Time
