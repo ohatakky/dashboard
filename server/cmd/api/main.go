@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"log"
 	"net/http"
 
@@ -8,18 +9,13 @@ import (
 	acRepo "github.com/ohatakky/dashboard/server/atcoder/repository"
 	acUsecase "github.com/ohatakky/dashboard/server/atcoder/usecase"
 
-	twHandler "github.com/ohatakky/dashboard/server/twitter/handler/http"
-	twRepo "github.com/ohatakky/dashboard/server/twitter/repository"
-	twUsecase "github.com/ohatakky/dashboard/server/twitter/usecase"
-
 	"github.com/ohatakky/dashboard/server/pkg/atcoder"
-	"github.com/ohatakky/dashboard/server/pkg/twitter"
 	"github.com/ohatakky/dashboard/server/project/configs"
+	"github.com/ohatakky/dashboard/server/project/singleton"
 )
 
 func main() {
 	configs.InitConfigs()
-	// todo: init sheets data mappings to global variables
 
 	mux := http.NewServeMux()
 	{
@@ -28,12 +24,26 @@ func main() {
 		uc := acUsecase.NewAtcoderUsecase(repo)
 		acHandler.NewHttpAtcoderHandler(mux, uc)
 	}
+	// {
+	// 	client := twitter.NewClient(configs.E.Twitter.SpreadsheetID, configs.E.Twitter.SheetName)
+	// 	repo := twRepo.NewTwitterRepository(client)
+	// 	uc := twUsecase.NewTwitterUsecase(repo)
+	// 	twHandler.NewHttpTwitterHandler(mux, uc)
+	// }
 	{
-		client := twitter.NewClient(configs.E.Twitter.SpreadsheetID, configs.E.Twitter.SheetName)
-		repo := twRepo.NewTwitterRepository(client)
-		uc := twUsecase.NewTwitterUsecase(repo)
-		twHandler.NewHttpTwitterHandler(mux, uc)
+		singleton.InitTwitter()
+
+		mux.HandleFunc("/twitter", func(w http.ResponseWriter, _ *http.Request) {
+			b, err := json.Marshal(singleton.Tweets)
+			if err != nil {
+				http.Error(w, err.Error(), http.StatusInternalServerError)
+				return
+			}
+			w.Header().Set("Content-Type", "application/json")
+			w.Write(b)
+		})
 	}
 
+	log.Println("running...")
 	log.Fatal(http.ListenAndServe(":8080", mux))
 }

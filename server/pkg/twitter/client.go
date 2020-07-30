@@ -63,7 +63,6 @@ func (c *Client) Tweets() ([]Tweet, error) {
 			return nil, err
 		}
 
-		fmt.Println(tweet)
 		tmp := Tweet{}
 		for i, t := range tweet {
 			if t == "" {
