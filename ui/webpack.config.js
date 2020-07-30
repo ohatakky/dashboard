@@ -1,5 +1,6 @@
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const path = require("path");
 
 module.exports = {
   entry: "./src/index.tsx",
@@ -17,6 +18,9 @@ module.exports = {
   },
   resolve: {
     extensions: [".ts", ".tsx", ".js"],
+    alias: {
+      "~": path.resolve(__dirname, "src"),
+    },
   },
   module: {
     rules: [{ test: /\.tsx?$/, loader: "ts-loader" }],

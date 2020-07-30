@@ -8,7 +8,7 @@ import {
   Label,
   ResponsiveContainer,
 } from "recharts";
-import Title from "../../../common/Title"; // todo: root-import
+import Title from "~/components/common/Title";
 
 const createData = (time, amount) => {
   return { time, amount };
