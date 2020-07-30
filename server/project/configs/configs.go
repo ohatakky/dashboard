@@ -10,13 +10,18 @@ import (
 var E *Env
 
 type Env struct {
-	Atcoder Atcoder `yaml:"atcoder"`
-	Note    Note    `yaml:"note"`
-	Life    Life    `yaml:"life"`
-	Twitter Twitter `yaml:"twitter"`
+	Atcoder   Atcoder   `yaml:"atcoder"`
+	Bookmater Bookmater `ymal:"bookmater"`
+	Note      Note      `yaml:"note"`
+	Life      Life      `yaml:"life"`
+	Twitter   Twitter   `yaml:"twitter"`
 }
 
 type Atcoder struct {
+	User string `yaml:"user"`
+}
+
+type Bookmater struct {
 	User string `yaml:"user"`
 }
 
