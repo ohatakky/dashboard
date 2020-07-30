@@ -19,6 +19,8 @@ import (
 
 func main() {
 	configs.InitConfigs()
+	// todo: init sheets data mappings to global variables
+
 	mux := http.NewServeMux()
 	{
 		client := atcoder.NewClient(configs.E.Atcoder.User)
