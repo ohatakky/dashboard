@@ -5,10 +5,11 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/rs/cors"
+
 	acHandler "github.com/ohatakky/dashboard/server/atcoder/handler/http"
 	acRepo "github.com/ohatakky/dashboard/server/atcoder/repository"
 	acUsecase "github.com/ohatakky/dashboard/server/atcoder/usecase"
-
 	"github.com/ohatakky/dashboard/server/pkg/atcoder"
 	"github.com/ohatakky/dashboard/server/project/configs"
 	"github.com/ohatakky/dashboard/server/project/singleton"
@@ -44,6 +45,12 @@ func main() {
 		})
 	}
 
+	c := cors.New(cors.Options{
+		AllowedOrigins: []string{"http://localhost:3001"},
+		AllowedMethods: []string{"GET"},
+	})
+	handler := c.Handler(mux)
+
 	log.Println("running...")
-	log.Fatal(http.ListenAndServe(":8080", mux))
+	log.Fatal(http.ListenAndServe(":8080", handler))
 }
