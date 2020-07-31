@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Dashboard: FC = () => {
+const Summary: FC = () => {
   const classes = useStyles();
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
   return (
@@ -55,4 +55,4 @@ const Dashboard: FC = () => {
   );
 };
 
-export default Dashboard;
+export default Summary;
