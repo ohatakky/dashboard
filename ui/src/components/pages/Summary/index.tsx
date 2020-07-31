@@ -1,10 +1,11 @@
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
+import apiClient from "~/utils/api";
 import Copyright from "~/components/common/Copyright";
 import Chart from "./Chart";
 import Deposit from "./Deposit";
@@ -29,6 +30,21 @@ const useStyles = makeStyles((theme) => ({
 const Summary: FC = () => {
   const classes = useStyles();
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+
+  useEffect(() => {
+    const getTweets = async () => {
+      const { response, error } = await apiClient.get(
+        "http://localhost:8080/twitter",
+      );
+      if (error) {
+        console.log("error > ", error);
+      } else {
+        console.log("response > ", response);
+      }
+    };
+    getTweets();
+  }, []);
+
   return (
     <Container maxWidth="lg" className={classes.container}>
       <Grid container spacing={3}>
