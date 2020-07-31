@@ -3,8 +3,8 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import DashboardIcon from "@material-ui/icons/Dashboard";
-import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
-import PeopleIcon from "@material-ui/icons/People";
+import FilterHdrIcon from "@material-ui/icons/FilterHdr";
+import FitnessCenterIcon from "@material-ui/icons/FitnessCenter";
 import BarChartIcon from "@material-ui/icons/BarChart";
 
 export const BasicList: FC = () => (
@@ -17,13 +17,13 @@ export const BasicList: FC = () => (
     </ListItem>
     <ListItem button>
       <ListItemIcon>
-        <ShoppingCartIcon />
+        <FitnessCenterIcon />
       </ListItemIcon>
       <ListItemText primary="Progress" />
     </ListItem>
     <ListItem button>
       <ListItemIcon>
-        <PeopleIcon />
+        <FilterHdrIcon />
       </ListItemIcon>
       <ListItemText primary="Climbing" />
     </ListItem>
