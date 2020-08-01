@@ -46,7 +46,7 @@ func main() {
 	}
 
 	c := cors.New(cors.Options{
-		AllowedOrigins: []string{"http://localhost:3001"},
+		// AllowedOrigins: []string{"http://localhost:3001"},
 		AllowedMethods: []string{"GET"},
 	})
 	handler := c.Handler(mux)
