@@ -15,19 +15,19 @@ export const BasicList: FC = () => (
       </ListItemIcon>
       <ListItemText primary="Summary" />
     </ListItem>
-    <ListItem button>
+    <ListItem button disabled>
       <ListItemIcon>
         <FitnessCenterIcon />
       </ListItemIcon>
       <ListItemText primary="Progress" />
     </ListItem>
-    <ListItem button>
+    <ListItem button disabled>
       <ListItemIcon>
         <FilterHdrIcon />
       </ListItemIcon>
       <ListItemText primary="Climbing" />
     </ListItem>
-    <ListItem button>
+    <ListItem button disabled>
       <ListItemIcon>
         <BarChartIcon />
       </ListItemIcon>
