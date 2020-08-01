@@ -9,8 +9,6 @@ import apiClient from "~/utils/api";
 import { API_HOST } from "~/utils/constants";
 import Title from "~/components/common/Title";
 import Copyright from "~/components/common/Copyright";
-import Deposit from "./Deposit";
-import Order from "./Order";
 import DailyCountChart, { Data } from "./DateCountChart";
 
 const useStyles = makeStyles((theme) => ({
@@ -64,20 +62,20 @@ const Summary: FC = () => {
             <DailyCountChart title="Atcoder" data={submissions} />
           </Paper>
         </Grid>
-        <Grid item xs={12} md={12} lg={12}>
+        <Grid item xs={12} md={12} lg={7}>
           <Paper className={classes.paper}>
             <Title>Github</Title>
             <img src="https://grass-graph.moshimo.works/images/ohatakky.png" />
           </Paper>
         </Grid>
-        <Grid item xs={12} md={4} lg={3}>
+        <Grid item xs={12} md={4} lg={5}>
           <Paper className={fixedHeightPaper}>
-            <Deposit />
-          </Paper>
-        </Grid>
-        <Grid item xs={12}>
-          <Paper className={classes.paper}>
-            <Order />
+            <Title>Github</Title>
+            <a href="https://github.com/ohatakky" target="_blank">
+              <img
+                src="https://github-readme-stats.vercel.app/api?username=ohatakky&count_private=true&hide=contribs,prs,issues,stars"
+              />
+            </a>
           </Paper>
         </Grid>
       </Grid>

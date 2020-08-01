@@ -1,8 +1,8 @@
 import React, { FC } from "react";
 import { useTheme } from "@material-ui/core/styles";
 import {
-  LineChart,
-  Line,
+  BarChart,
+  Bar,
   XAxis,
   YAxis,
   Label,
@@ -27,7 +27,7 @@ const DailyCountChart: FC<DailyCountChartProps> = ({ title, data }) => {
     <React.Fragment>
       <Title>{title}</Title>
       <ResponsiveContainer>
-        <LineChart
+        <BarChart
           data={data}
           margin={{
             top: 16,
@@ -46,13 +46,12 @@ const DailyCountChart: FC<DailyCountChartProps> = ({ title, data }) => {
               Count
             </Label>
           </YAxis>
-          <Line
-            type="monotone"
+          <Bar
             dataKey="count"
+            fill={theme.palette.primary.main}
             stroke={theme.palette.primary.main}
-            dot={false}
           />
-        </LineChart>
+        </BarChart>
       </ResponsiveContainer>
     </React.Fragment>
   );

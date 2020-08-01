@@ -84,7 +84,7 @@ const useStyles = makeStyles((theme) => ({
 
 const App: FC = () => {
   const classes = useStyles();
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const handleDrawerOpen = () => {
     setOpen(true);
   };
