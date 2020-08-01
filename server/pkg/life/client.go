@@ -23,36 +23,72 @@ func NewClient(spreadsheetID, sheetName string) *Client {
 	}
 }
 
-type Weather string
-
 const (
-	Sunny  = Weather("晴れ")
-	Cloudy = Weather("曇り")
-	Rainy  = Weather("雨")
+	dateLayout     = "2006/01/02"
+	timeLayout     = "15:04:05"
+	durationLayout = "1h00m"
 )
 
-const (
-	dateLayout = "2006/01/02"
-	timeLayout = "15:04:05"
-)
+func dateParser() {
+
+}
+
+func timeParser() {
+
+}
+
+func durationParser() {
+
+}
+
+type Time struct {
+	time.Time
+	Valid bool
+}
+
+type Duration struct {
+	time.Duration
+	Valid bool
+}
+
+type String struct {
+	string
+	Valid bool
+}
+
+type Int struct {
+	int
+	Valid bool
+}
+
+type Float struct {
+	float64
+	Valid bool
+}
+
+type Bool struct {
+	bool
+	Valid bool
+}
 
 type Record struct {
-	Date        TimeNull      // 日付
-	Condition   int           // 調子[10]
-	Rising      time.Time     // 起床
-	LightOff    time.Time     // 消灯
-	Sleep       time.Duration // 睡眠
-	Nap         time.Duration // 仮眠
-	Meals       int           // 食事の回数
-	Fullness    int           // 満腹感[10]
-	Motion      time.Duration // 運動
-	Hunting     time.Duration // 狩り
-	Devotion    time.Duration // 精進
-	Hobby       time.Duration // 趣味
-	Meaningless time.Duration // 無意味な時間
-	Weather     Weather       // 天気
-	S           int           // S
-	Vitamin     bool          // ビタミン剤
+	Date        Time     // 日付
+	Condition   Int      // 調子
+	Rising      Time     // 起床
+	Sleep       Duration // 睡眠
+	LightOff    Bool     // 消灯
+	Bath        Time     // 風呂
+	Fullness    Int      // 満腹感
+	Vitamin     Bool     // ビタミン剤
+	Weather     String   // 天気
+	Hunting     Duration // 狩
+	Devotion    Duration // 精進
+	Hobby       Duration // 趣味
+	Meaningless Duration // 無の時間
+	WorkoutW    Duration // ワークアウトW
+	WorkoutR    Float    // ワークアウトR
+	WorkoutB    Int      // ワークアウトB
+	WorkoutE    Int      // ワークアウトE
 }
 
 func (c *Client) downloads() ([]byte, error) {
@@ -69,18 +105,6 @@ func (c *Client) downloads() ([]byte, error) {
 		return nil, err
 	}
 	return body, nil
-}
-
-// todo: sqlboilerのnullパッケージのようなやつ
-// IsValidでリファクタ
-type TimeNull struct {
-	IsNull bool
-	time.Time
-}
-
-type DurationNull struct {
-	IsNull bool
-	time.Duration
 }
 
 func (c *Client) Records() ([]Record, error) {
@@ -103,7 +127,6 @@ func (c *Client) Records() ([]Record, error) {
 			return nil, err
 		}
 
-		// mappings to struct
 		tmp := Record{}
 		for i, v := range record {
 			var null bool
@@ -112,32 +135,50 @@ func (c *Client) Records() ([]Record, error) {
 			}
 			switch i {
 			case 0:
+				tmp.Date.Valid = null
 				if null {
-					tmp.Date.IsNull = true
+					continue
 				}
 				tmp.Date.Time, err = time.Parse(dateLayout, v)
 				if err != nil {
 					return nil, err
 				}
 			case 1:
-				tmp.Condition, err = strconv.Atoi(v)
+				tmp.Condition.Valid = null
+				if null {
+					continue
+				}
+				tmp.Condition.int, err = strconv.Atoi(v)
 				if err != nil {
 					return nil, err
 				}
 			case 2:
-				tmp.Rising, err = time.Parse(timeLayout, v)
+				tmp.Rising.Valid = null
+				if null {
+					continue
+				}
+				tmp.Rising.Time, err = time.Parse(timeLayout, v)
 				if err != nil {
 					return nil, err
 				}
 			case 3:
-				tmp.LightOff, err = time.Parse(timeLayout, v)
+				tmp.Sleep.Valid = null
+				if null {
+					continue
+				}
+				tmp.Sleep.Duration, err = time.ParseDuration(v)
 				if err != nil {
 					return nil, err
 				}
 			case 4:
-				tmp.Sleep, err = time.ParseDuration(v)
-				if err != nil {
-					return nil, err
+				tmp.LightOff.Valid = null
+				if null {
+					continue
+				}
+				if v == "Yes" {
+					tmp.LightOff.bool = true
+				} else if v == "No" {
+					tmp.LightOff.bool = false
 				}
 			}
 		}

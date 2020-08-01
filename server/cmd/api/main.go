@@ -10,6 +10,7 @@ import (
 	acRepo "github.com/ohatakky/dashboard/server/atcoder/repository"
 	acUsecase "github.com/ohatakky/dashboard/server/atcoder/usecase"
 	boHttp "github.com/ohatakky/dashboard/server/bookmater/handler/http"
+	liHttp "github.com/ohatakky/dashboard/server/life/handler/http"
 	noHttp "github.com/ohatakky/dashboard/server/note/handler/http"
 	twHttp "github.com/ohatakky/dashboard/server/twitter/handler/http"
 	twRepo "github.com/ohatakky/dashboard/server/twitter/repository"
@@ -35,6 +36,10 @@ func main() {
 	{
 		singleton.InitBookmater()
 		boHttp.NewHttpBookmaterHandler(mux)
+	}
+	{
+		singleton.InitLife()
+		liHttp.NewHttpLifeHandler(mux)
 	}
 	{
 		singleton.InitNote()
