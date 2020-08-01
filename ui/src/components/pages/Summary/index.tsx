@@ -62,13 +62,13 @@ const Summary: FC = () => {
             <DailyCountChart title="Atcoder" data={submissions} />
           </Paper>
         </Grid>
-        <Grid item xs={12} md={12} lg={7}>
+        <Grid item xs={12} md={10} lg={7}>
           <Paper className={classes.paper}>
             <Title>Github</Title>
             <img src="https://grass-graph.moshimo.works/images/ohatakky.png" />
           </Paper>
         </Grid>
-        <Grid item xs={12} md={4} lg={5}>
+        <Grid item xs={12} md={8} lg={5}>
           <Paper className={fixedHeightPaper}>
             <Title>Github</Title>
             <a href="https://github.com/ohatakky" target="_blank">
