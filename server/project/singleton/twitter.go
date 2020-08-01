@@ -10,11 +10,11 @@ import (
 
 var Tweets []twitter.Tweet
 
-var once sync.Once
+var onceTwitter sync.Once
 
 func InitTwitter() {
 	client := twitter.NewClient(configs.E.Twitter.SpreadsheetID, configs.E.Twitter.SheetName)
-	once.Do(func() {
+	onceTwitter.Do(func() {
 		tweets, err := client.Tweets()
 		if err != nil {
 			log.Fatal(err)

@@ -7,10 +7,6 @@ import (
 
 	"github.com/rs/cors"
 
-	acHandler "github.com/ohatakky/dashboard/server/atcoder/handler/http"
-	acRepo "github.com/ohatakky/dashboard/server/atcoder/repository"
-	acUsecase "github.com/ohatakky/dashboard/server/atcoder/usecase"
-	"github.com/ohatakky/dashboard/server/pkg/atcoder"
 	"github.com/ohatakky/dashboard/server/project/configs"
 	"github.com/ohatakky/dashboard/server/project/singleton"
 )
@@ -19,18 +15,43 @@ func main() {
 	configs.InitConfigs()
 
 	mux := http.NewServeMux()
+
 	{
-		client := atcoder.NewClient(configs.E.Atcoder.User)
-		repo := acRepo.NewAtcoderRepository(client)
-		uc := acUsecase.NewAtcoderUsecase(repo)
-		acHandler.NewHttpAtcoderHandler(mux, uc)
+		singleton.InitAtcoder()
+		mux.HandleFunc("/atcoder", func(w http.ResponseWriter, _ *http.Request) {
+			b, err := json.Marshal(singleton.Submissions)
+			if err != nil {
+				http.Error(w, err.Error(), http.StatusInternalServerError)
+				return
+			}
+			w.Header().Set("Content-Type", "application/json")
+			w.Write(b)
+		})
 	}
-	// {
-	// 	client := twitter.NewClient(configs.E.Twitter.SpreadsheetID, configs.E.Twitter.SheetName)
-	// 	repo := twRepo.NewTwitterRepository(client)
-	// 	uc := twUsecase.NewTwitterUsecase(repo)
-	// 	twHandler.NewHttpTwitterHandler(mux, uc)
-	// }
+	{
+		singleton.InitBookmater()
+		mux.HandleFunc("/bookmater", func(w http.ResponseWriter, _ *http.Request) {
+			b, err := json.Marshal(singleton.Reviews)
+			if err != nil {
+				http.Error(w, err.Error(), http.StatusInternalServerError)
+				return
+			}
+			w.Header().Set("Content-Type", "application/json")
+			w.Write(b)
+		})
+	}
+	{
+		singleton.InitNote()
+		mux.HandleFunc("/note", func(w http.ResponseWriter, _ *http.Request) {
+			b, err := json.Marshal(singleton.Posts)
+			if err != nil {
+				http.Error(w, err.Error(), http.StatusInternalServerError)
+				return
+			}
+			w.Header().Set("Content-Type", "application/json")
+			w.Write(b)
+		})
+	}
 	{
 		singleton.InitTwitter()
 

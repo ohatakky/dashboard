@@ -1,5 +1,5 @@
 function run() {
-    go run cmd/api/main.go
+    watchexec -r go run cmd/api/main.go
 }
 
 function deploy() {
