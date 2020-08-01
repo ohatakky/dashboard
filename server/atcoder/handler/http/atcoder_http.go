@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/ohatakky/dashboard/server/atcoder/usecase"
+	"github.com/ohatakky/dashboard/server/project/singleton"
 )
 
 type HttpAtcoderHandler struct {
@@ -17,9 +18,20 @@ func NewHttpAtcoderHandler(mux *http.ServeMux, uc usecase.AtcoderUsecase) {
 	}
 
 	mux.HandleFunc("/atcoder", h.Submissions)
+	mux.HandleFunc("/atcoder/latest", h.SubmissionsLatest)
 }
 
 func (h *HttpAtcoderHandler) Submissions(w http.ResponseWriter, _ *http.Request) {
+	b, err := json.Marshal(singleton.Submissions)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(b)
+}
+
+func (h *HttpAtcoderHandler) SubmissionsLatest(w http.ResponseWriter, _ *http.Request) {
 	res, err := h.atcoderUC.Submissions()
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
