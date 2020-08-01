@@ -4,10 +4,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Title from "~/components/common/Title";
 
-const preventDefault = (event) => {
-  event.preventDefault();
-};
-
 const useStyles = makeStyles({
   depositContext: {
     flex: 1,
@@ -26,7 +22,7 @@ const Deposit: FC = () => {
         on 15 March, 2019
       </Typography>
       <div>
-        <Link color="primary" href="#" onClick={preventDefault}>
+        <Link color="primary" href="#" onClick={(e) => e.preventDefault()}>
           View balance
         </Link>
       </div>

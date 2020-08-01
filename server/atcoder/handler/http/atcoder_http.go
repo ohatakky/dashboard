@@ -22,7 +22,13 @@ func NewHttpAtcoderHandler(mux *http.ServeMux, uc usecase.AtcoderUsecase) {
 }
 
 func (h *HttpAtcoderHandler) Submissions(w http.ResponseWriter, _ *http.Request) {
-	b, err := json.Marshal(singleton.Submissions)
+	res, err := h.atcoderUC.SubmissionsDaily(singleton.Submissions)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	b, err := json.Marshal(res)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return

@@ -55,10 +55,6 @@ const rows = [
   ),
 ];
 
-const preventDefault = (event) => {
-  event.preventDefault();
-};
-
 const useStyles = makeStyles((theme) => ({
   seeMore: {
     marginTop: theme.spacing(3),
@@ -93,7 +89,7 @@ const Order: FC = () => {
         </TableBody>
       </Table>
       <div className={classes.seeMore}>
-        <Link color="primary" href="#" onClick={preventDefault}>
+        <Link color="primary" href="#" onClick={(e) => e.preventDefault()}>
           See more orders
         </Link>
       </div>

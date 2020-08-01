@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from "react";
+import React, { FC, useState, useEffect } from "react";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
@@ -7,10 +7,11 @@ import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import apiClient from "~/utils/api";
 import { API_HOST } from "~/utils/constants";
+import Title from "~/components/common/Title";
 import Copyright from "~/components/common/Copyright";
-import Chart from "./Chart";
 import Deposit from "./Deposit";
 import Order from "./Order";
+import DailyCountChart, { Data } from "./DateCountChart";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -28,27 +29,45 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+type Submission = {
+  Date: string;
+  Count: number;
+};
+
 const Summary: FC = () => {
   const classes = useStyles();
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+  const [submissions, setSubmissions] = useState<Data[]>([]);
 
   useEffect(() => {
-    const getTweets = async () => {
-      const { response, error } = await apiClient.get(
-        `${API_HOST}/twitter`,
+    const getSubmissions = async () => {
+      const { response, error } = await apiClient.get<Submission[]>(
+        `${API_HOST}/atcoder`,
       );
       if (error) return;
-      console.log(response);
+      const data = response.map((a) => {
+        return {
+          date: a.Date,
+          count: a.Count,
+        };
+      });
+      setSubmissions(data);
     };
-    getTweets();
+    getSubmissions();
   }, []);
 
   return (
     <Container maxWidth="lg" className={classes.container}>
       <Grid container spacing={3}>
-        <Grid item xs={12} md={8} lg={9}>
+        <Grid item xs={12} md={12} lg={12}>
           <Paper className={fixedHeightPaper}>
-            <Chart />
+            <DailyCountChart title="Atcoder" data={submissions} />
+          </Paper>
+        </Grid>
+        <Grid item xs={12} md={12} lg={12}>
+          <Paper className={classes.paper}>
+            <Title>Github</Title>
+            <img src="https://grass-graph.moshimo.works/images/ohatakky.png" />
           </Paper>
         </Grid>
         <Grid item xs={12} md={4} lg={3}>

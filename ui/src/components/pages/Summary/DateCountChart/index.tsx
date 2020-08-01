@@ -10,28 +10,22 @@ import {
 } from "recharts";
 import Title from "~/components/common/Title";
 
-const createData = (time, amount) => {
-  return { time, amount };
+export type Data = {
+  date: string;
+  count: number;
 };
 
-const data = [
-  createData("00:00", 0),
-  createData("03:00", 300),
-  createData("06:00", 600),
-  createData("09:00", 800),
-  createData("12:00", 1500),
-  createData("15:00", 2000),
-  createData("18:00", 2400),
-  createData("21:00", 2400),
-  createData("24:00", undefined),
-];
+type DailyCountChartProps = {
+  title: string;
+  data: Data[];
+};
 
-const Chart: FC = () => {
+const DailyCountChart: FC<DailyCountChartProps> = ({ title, data }) => {
   const theme = useTheme();
 
   return (
     <React.Fragment>
-      <Title>Today</Title>
+      <Title>{title}</Title>
       <ResponsiveContainer>
         <LineChart
           data={data}
@@ -42,19 +36,19 @@ const Chart: FC = () => {
             left: 24,
           }}
         >
-          <XAxis dataKey="time" stroke={theme.palette.text.secondary} />
+          <XAxis dataKey="date" stroke={theme.palette.text.secondary} />
           <YAxis stroke={theme.palette.text.secondary}>
             <Label
               angle={270}
               position="left"
               style={{ textAnchor: "middle", fill: theme.palette.text.primary }}
             >
-              Sales ($)
+              Count
             </Label>
           </YAxis>
           <Line
             type="monotone"
-            dataKey="amount"
+            dataKey="count"
             stroke={theme.palette.primary.main}
             dot={false}
           />
@@ -64,4 +58,4 @@ const Chart: FC = () => {
   );
 };
 
-export default Chart;
+export default DailyCountChart;
