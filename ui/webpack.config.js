@@ -1,6 +1,8 @@
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const Dotenv = require("dotenv-webpack");
 const path = require("path");
+const envpath = process.env.NODE_ENV ? `.env.${process.env.NODE_ENV}` : ".env";
 
 module.exports = {
   entry: "./src/index.tsx",
@@ -10,6 +12,10 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       template: "src/index.html",
+    }),
+    new Dotenv({
+      path: envpath,
+      safe: true,
     }),
   ],
   output: {

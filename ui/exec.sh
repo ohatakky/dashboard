@@ -2,8 +2,12 @@ function run() {
     npm run start
 }
 
-function build() {
-    npm run build
+function builddev() {
+    npm run build:dev
+}
+
+function buildprd() {
+    npm run build:prd
 }
 
 function deploy() {

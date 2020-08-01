@@ -6,6 +6,7 @@ import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import apiClient from "~/utils/api";
+import { API_HOST } from "~/utils/constants";
 import Copyright from "~/components/common/Copyright";
 import Chart from "./Chart";
 import Deposit from "./Deposit";
@@ -34,13 +35,10 @@ const Summary: FC = () => {
   useEffect(() => {
     const getTweets = async () => {
       const { response, error } = await apiClient.get(
-        "http://localhost:8080/twitter",
+        `${API_HOST}/twitter`,
       );
-      if (error) {
-        console.log("error > ", error);
-      } else {
-        console.log("response > ", response);
-      }
+      if (error) return;
+      console.log(response);
     };
     getTweets();
   }, []);

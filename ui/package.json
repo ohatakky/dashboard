@@ -2,10 +2,10 @@
   "name": "ui",
   "version": "0.0.0",
   "scripts": {
-    "clean": "rm -rf ./node_modules package-lock.json && npm i",
-    "upgrade": "npm install typescript@latest react@latest react-dom@latest @types/react@latest @types/react-dom@latest webpack@latest webpack-dev-server@latest webpack-cli@latest ts-loader@latest clean-webpack-plugin@latest html-webpack-plugin@latest --save-exact",
-    "build": "webpack -p",
-    "start": "webpack-dev-server -d --content-base ./public"
+    "i": "rm -rf ./node_modules package-lock.json && npm i",
+    "build:dev": "NODE_ENV=dev webpack -p",
+    "build:prd": "NODE_ENV=prd webpack -p",
+    "start": "NODE_ENV=dev webpack-dev-server -d --content-base ./public"
   },
   "dependencies": {
     "@material-ui/core": "^4.11.0",
@@ -26,6 +26,7 @@
     "webpack-dev-server": "^3.11.0"
   },
   "devDependencies": {
+    "dotenv-webpack": "^2.0.0",
     "eslint": "^7.5.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-prettier": "^3.1.4",
