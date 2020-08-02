@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect } from "react";
+import React, { FC } from "react";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
@@ -26,11 +26,15 @@ const useStyles = makeStyles((theme) => ({
   fixedHeight: {
     height: 240,
   },
+  lifeHeight: {
+    height: 480,
+  },
 }));
 
 const Summary: FC = () => {
   const classes = useStyles();
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+  const lifeHeightPaper = clsx(classes.paper, classes.lifeHeight);
 
   return (
     <Container maxWidth="lg" className={classes.container}>
@@ -67,7 +71,7 @@ const Summary: FC = () => {
           </Paper>
         </Grid>
         <Grid item xs={12} md={12} lg={12}>
-          <Paper className={fixedHeightPaper}>
+          <Paper className={lifeHeightPaper}>
             <Life />
           </Paper>
         </Grid>
