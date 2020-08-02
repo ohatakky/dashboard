@@ -8,6 +8,7 @@ import Paper from "@material-ui/core/Paper";
 import Title from "~/components/common/Title";
 import Copyright from "~/components/common/Copyright";
 import Atcoder from "./Atcoder";
+import Life from "./Life";
 import Note from "./Note";
 import Twitter from "./Twitter";
 
@@ -63,6 +64,11 @@ const Summary: FC = () => {
                 src="https://github-readme-stats.vercel.app/api?username=ohatakky&count_private=true&hide=contribs,prs,issues,stars"
               />
             </a>
+          </Paper>
+        </Grid>
+        <Grid item xs={12} md={12} lg={12}>
+          <Paper className={fixedHeightPaper}>
+            <Life />
           </Paper>
         </Grid>
       </Grid>
