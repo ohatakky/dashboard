@@ -5,13 +5,16 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"strconv"
 )
 
 // curl "https://note.com/api/v2/creators/ohatakky/contents?kind=note&page=1" | jq .
 
+// curl http://localhost:8080/note | jq '.data.contents[].publishAt'
+
 const (
 	endpoint       = "https://note.com/api/v2"
-	contentPathFmt = "creators/%s/contents?kind=note"
+	contentPathFmt = "creators/%s/contents?kind=note&page=%s"
 )
 
 type Posts struct {
@@ -101,23 +104,33 @@ func NewClient(user string) *Client {
 	}
 }
 
-func (c *Client) GetPosts() (*Posts, error) {
-	u := endpoint + "/" + fmt.Sprintf(contentPathFmt, c.user)
-	resp, err := http.Get(u)
-	if err != nil {
-		return nil, err
-	}
-	defer resp.Body.Close()
+func (c *Client) GetPosts() ([]Posts, error) {
+	res := make([]Posts, 0)
+	idx := 1
+	for {
+		u := endpoint + "/" + fmt.Sprintf(contentPathFmt, c.user, strconv.Itoa(idx))
+		resp, err := http.Get(u)
+		if err != nil {
+			return nil, err
+		}
+		defer resp.Body.Close()
 
-	body, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		return nil, err
+		body, err := ioutil.ReadAll(resp.Body)
+		if err != nil {
+			return nil, err
+		}
+
+		tmp := Posts{}
+		err = json.Unmarshal(body, &tmp)
+		if err != nil {
+			return nil, err
+		}
+		res = append(res, tmp)
+		if tmp.Data.IsLastPage {
+			break
+		}
+		idx++
 	}
 
-	res := Posts{}
-	err = json.Unmarshal(body, &res)
-	if err != nil {
-		return nil, err
-	}
-	return &res, nil
+	return res, nil
 }

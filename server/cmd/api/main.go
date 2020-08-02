@@ -12,6 +12,7 @@ import (
 	boHttp "github.com/ohatakky/dashboard/server/bookmater/handler/http"
 	liHttp "github.com/ohatakky/dashboard/server/life/handler/http"
 	noHttp "github.com/ohatakky/dashboard/server/note/handler/http"
+	noUsecase "github.com/ohatakky/dashboard/server/note/usecase"
 	twHttp "github.com/ohatakky/dashboard/server/twitter/handler/http"
 	twRepo "github.com/ohatakky/dashboard/server/twitter/repository"
 	twUsecase "github.com/ohatakky/dashboard/server/twitter/usecase"
@@ -43,7 +44,8 @@ func main() {
 	}
 	{
 		singleton.InitNote()
-		noHttp.NewHttpNoteHandler(mux)
+		uc := noUsecase.NewNoteUsecase()
+		noHttp.NewHttpNoteHandler(mux, uc)
 	}
 	{
 		singleton.InitTwitter()

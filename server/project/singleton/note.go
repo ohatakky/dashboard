@@ -8,7 +8,7 @@ import (
 	"github.com/ohatakky/dashboard/server/project/configs"
 )
 
-var Posts *note.Posts
+var Posts []note.Posts
 
 var onceNote sync.Once
 
