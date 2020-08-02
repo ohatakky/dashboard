@@ -34,10 +34,10 @@ type Time struct {
 	Valid bool      `json:"valid"`
 }
 
-type Duration struct {
-	Duration time.Duration `json:"duration"`
-	Valid    bool          `json:"valid"`
-}
+// type Duration struct {
+// 	Duration time.Duration `json:"duration"`
+// 	Valid    bool          `json:"valid"`
+// }
 
 type String struct {
 	String string `json:"string"`
@@ -60,21 +60,21 @@ type Bool struct {
 }
 
 type Record struct {
-	Date      Time     `json:"date"`      // 日付
-	Condition Int      `json:"condition"` // 調子
-	Rising    Time     `json:"rising"`    // 起床
-	Sleep     Duration `json:"sleep"`     // 睡眠
-	LightOff  Bool     `json:"light_off"` // 消灯
-	Bath      Time     `json:"bath"`      // 風呂
-	Fullness  Int      `json:"fullness"`  // 満腹感
-	Vitamin   Bool     `json:"vitamin"`   // ビタミン剤
-	Weather   String   `json:"weather"`   // 天気
-	Hunting   Duration `json:"hunting"`   // 狩
-	Devotion  Duration `json:"devotion"`  // 精進
-	Hobby     Duration `json:"hobby"`     // 趣味
-	WorkoutW  Duration `json:"workout_w"` // ワークアウトW
-	WorkoutR  Float    `json:"workout_r"` // ワークアウトR
-	WorkoutB  Int      `json:"workout_b"` // ワークアウトB
+	Date      Time   `json:"date"`      // 日付
+	Condition Int    `json:"condition"` // 調子
+	Rising    Time   `json:"rising"`    // 起床
+	Sleep     Float  `json:"sleep"`     // 睡眠
+	LightOff  Bool   `json:"light_off"` // 消灯
+	Bath      Time   `json:"bath"`      // 風呂
+	Fullness  Int    `json:"fullness"`  // 満腹感
+	Vitamin   Bool   `json:"vitamin"`   // ビタミン剤
+	Weather   String `json:"weather"`   // 天気
+	Hunting   Float  `json:"hunting"`   // 狩
+	Devotion  Float  `json:"devotion"`  // 精進
+	Hobby     Float  `json:"hobby"`     // 趣味
+	WorkoutW  Float  `json:"workout_w"` // ワークアウトW
+	WorkoutR  Float  `json:"workout_r"` // ワークアウトR
+	WorkoutB  Int    `json:"workout_b"` // ワークアウトB
 	// WorkoutE  Int      `json:"workout_e"` // ワークアウトE
 }
 
@@ -153,10 +153,11 @@ func (c *Client) Records() ([]Record, error) {
 				if null {
 					continue
 				}
-				tmp.Sleep.Duration, err = time.ParseDuration(v)
+				sleep, err := time.ParseDuration(v)
 				if err != nil {
 					return nil, err
 				}
+				tmp.Sleep.Float = sleep.Hours()
 			case 4:
 				tmp.LightOff.Valid = null
 				if null {
@@ -198,37 +199,41 @@ func (c *Client) Records() ([]Record, error) {
 				if null {
 					continue
 				}
-				tmp.Hunting.Duration, err = time.ParseDuration(v)
+				hunting, err := time.ParseDuration(v)
 				if err != nil {
 					return nil, err
 				}
+				tmp.Hunting.Float = hunting.Hours()
 			case 10:
 				tmp.Devotion.Valid = null
 				if null {
 					continue
 				}
-				tmp.Devotion.Duration, err = time.ParseDuration(v)
+				devotion, err := time.ParseDuration(v)
 				if err != nil {
 					return nil, err
 				}
+				tmp.Devotion.Float = devotion.Hours()
 			case 11:
 				tmp.Hobby.Valid = null
 				if null {
 					continue
 				}
-				tmp.Hobby.Duration, err = time.ParseDuration(v)
+				hobby, err := time.ParseDuration(v)
 				if err != nil {
 					return nil, err
 				}
+				tmp.Hobby.Float = hobby.Hours()
 			case 12:
 				tmp.WorkoutW.Valid = null
 				if null {
 					continue
 				}
-				tmp.WorkoutW.Duration, err = time.ParseDuration(v)
+				hobby, err := time.ParseDuration(v)
 				if err != nil {
 					return nil, err
 				}
+				tmp.WorkoutW.Float = hobby.Hours()
 			case 13:
 				tmp.WorkoutR.Valid = null
 				if null {
