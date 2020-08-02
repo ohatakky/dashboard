@@ -29,66 +29,53 @@ const (
 	durationLayout = "1h00m"
 )
 
-func dateParser() {
-
-}
-
-func timeParser() {
-
-}
-
-func durationParser() {
-
-}
-
 type Time struct {
-	time.Time
-	Valid bool
+	Time  time.Time `json:"time"`
+	Valid bool      `json:"valid"`
 }
 
 type Duration struct {
-	time.Duration
-	Valid bool
+	Duration time.Duration `json:"duration"`
+	Valid    bool          `json:"valid"`
 }
 
 type String struct {
-	string
-	Valid bool
+	String string `json:"string"`
+	Valid  bool   `json:"valid"`
 }
 
 type Int struct {
-	int
-	Valid bool
+	Int   int  `json:"int"`
+	Valid bool `json:"valid"`
 }
 
 type Float struct {
-	float64
-	Valid bool
+	Float float64 `json:"float"`
+	Valid bool    `json:"valid"`
 }
 
 type Bool struct {
-	bool
-	Valid bool
+	Bool  bool `json:"bool"`
+	Valid bool `json:"valid"`
 }
 
 type Record struct {
-	Date        Time     // 日付
-	Condition   Int      // 調子
-	Rising      Time     // 起床
-	Sleep       Duration // 睡眠
-	LightOff    Bool     // 消灯
-	Bath        Time     // 風呂
-	Fullness    Int      // 満腹感
-	Vitamin     Bool     // ビタミン剤
-	Weather     String   // 天気
-	Hunting     Duration // 狩
-	Devotion    Duration // 精進
-	Hobby       Duration // 趣味
-	Meaningless Duration // 無の時間
-	WorkoutW    Duration // ワークアウトW
-	WorkoutR    Float    // ワークアウトR
-	WorkoutB    Int      // ワークアウトB
-	WorkoutE    Int      // ワークアウトE
+	Date      Time     `json:"date"`      // 日付
+	Condition Int      `json:"condition"` // 調子
+	Rising    Time     `json:"rising"`    // 起床
+	Sleep     Duration `json:"sleep"`     // 睡眠
+	LightOff  Bool     `json:"light_off"` // 消灯
+	Bath      Time     `json:"bath"`      // 風呂
+	Fullness  Int      `json:"fullness"`  // 満腹感
+	Vitamin   Bool     `json:"vitamin"`   // ビタミン剤
+	Weather   String   `json:"weather"`   // 天気
+	Hunting   Duration `json:"hunting"`   // 狩
+	Devotion  Duration `json:"devotion"`  // 精進
+	Hobby     Duration `json:"hobby"`     // 趣味
+	WorkoutW  Duration `json:"workout_w"` // ワークアウトW
+	WorkoutR  Float    `json:"workout_r"` // ワークアウトR
+	WorkoutB  Int      `json:"workout_b"` // ワークアウトB
+	// WorkoutE  Int      `json:"workout_e"` // ワークアウトE
 }
 
 func (c *Client) downloads() ([]byte, error) {
@@ -148,7 +135,7 @@ func (c *Client) Records() ([]Record, error) {
 				if null {
 					continue
 				}
-				tmp.Condition.int, err = strconv.Atoi(v)
+				tmp.Condition.Int, err = strconv.Atoi(v)
 				if err != nil {
 					return nil, err
 				}
@@ -175,10 +162,90 @@ func (c *Client) Records() ([]Record, error) {
 				if null {
 					continue
 				}
-				if v == "Yes" {
-					tmp.LightOff.bool = true
-				} else if v == "No" {
-					tmp.LightOff.bool = false
+				tmp.LightOff.Bool = v == "Yes"
+			case 5:
+				tmp.Bath.Valid = null
+				if null {
+					continue
+				}
+				tmp.Bath.Time, err = time.Parse(timeLayout, v)
+				if err != nil {
+					return nil, err
+				}
+			case 6:
+				tmp.Fullness.Valid = null
+				if null {
+					continue
+				}
+				tmp.Fullness.Int, err = strconv.Atoi(v)
+				if err != nil {
+					return nil, err
+				}
+			case 7:
+				tmp.Vitamin.Valid = null
+				if null {
+					continue
+				}
+				tmp.Vitamin.Bool = v == "Yes"
+			case 8:
+				tmp.Weather.Valid = null
+				if null {
+					continue
+				}
+				tmp.Weather.String = v
+			case 9:
+				tmp.Hunting.Valid = null
+				if null {
+					continue
+				}
+				tmp.Hunting.Duration, err = time.ParseDuration(v)
+				if err != nil {
+					return nil, err
+				}
+			case 10:
+				tmp.Devotion.Valid = null
+				if null {
+					continue
+				}
+				tmp.Devotion.Duration, err = time.ParseDuration(v)
+				if err != nil {
+					return nil, err
+				}
+			case 11:
+				tmp.Hobby.Valid = null
+				if null {
+					continue
+				}
+				tmp.Hobby.Duration, err = time.ParseDuration(v)
+				if err != nil {
+					return nil, err
+				}
+			case 12:
+				tmp.WorkoutW.Valid = null
+				if null {
+					continue
+				}
+				tmp.WorkoutW.Duration, err = time.ParseDuration(v)
+				if err != nil {
+					return nil, err
+				}
+			case 13:
+				tmp.WorkoutR.Valid = null
+				if null {
+					continue
+				}
+				tmp.WorkoutR.Float, err = strconv.ParseFloat(v, 64)
+				if err != nil {
+					return nil, err
+				}
+			case 14:
+				tmp.WorkoutB.Valid = null
+				if null {
+					continue
+				}
+				tmp.WorkoutB.Int, err = strconv.Atoi(v)
+				if err != nil {
+					return nil, err
 				}
 			}
 		}
