@@ -13,8 +13,8 @@ import { API_HOST } from "~/utils/constants";
 import Title from "~/components/common/Title";
 
 type Submission = {
-  Date: string;
-  Count: number;
+  date: string;
+  count: number;
 };
 
 const Atcoder: FC = () => {
@@ -45,7 +45,7 @@ const Atcoder: FC = () => {
             left: 24,
           }}
         >
-          <XAxis dataKey="Date" stroke={theme.palette.text.secondary} />
+          <XAxis dataKey="date" stroke={theme.palette.text.secondary} />
           <YAxis stroke={theme.palette.text.secondary}>
             <Label
               angle={270}
@@ -56,7 +56,7 @@ const Atcoder: FC = () => {
             </Label>
           </YAxis>
           <Bar
-            dataKey="Count"
+            dataKey="count"
             fill={theme.palette.primary.main}
             stroke={theme.palette.primary.main}
           />
