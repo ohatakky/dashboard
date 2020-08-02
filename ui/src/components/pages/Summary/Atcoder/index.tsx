@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useState, useEffect } from "react";
 import { useTheme } from "@material-ui/core/styles";
 import {
   BarChart,
@@ -8,27 +8,36 @@ import {
   Label,
   ResponsiveContainer,
 } from "recharts";
+import apiClient from "~/utils/api";
+import { API_HOST } from "~/utils/constants";
 import Title from "~/components/common/Title";
 
-export type Data = {
-  date: string;
-  count: number;
+type Submission = {
+  Date: string;
+  Count: number;
 };
 
-type DailyCountChartProps = {
-  title: string;
-  data: Data[];
-};
-
-const DailyCountChart: FC<DailyCountChartProps> = ({ title, data }) => {
+const Atcoder: FC = () => {
   const theme = useTheme();
+  const [submissions, setSubmissions] = useState<Submission[]>([]);
+
+  useEffect(() => {
+    const getSubmissions = async () => {
+      const { response, error } = await apiClient.get<Submission[]>(
+        `${API_HOST}/atcoder`,
+      );
+      if (error) return;
+      setSubmissions(response);
+    };
+    getSubmissions();
+  }, []);
 
   return (
     <React.Fragment>
-      <Title>{title}</Title>
+      <Title>Atcoder</Title>
       <ResponsiveContainer>
         <BarChart
-          data={data}
+          data={submissions}
           margin={{
             top: 16,
             right: 16,
@@ -36,7 +45,7 @@ const DailyCountChart: FC<DailyCountChartProps> = ({ title, data }) => {
             left: 24,
           }}
         >
-          <XAxis dataKey="date" stroke={theme.palette.text.secondary} />
+          <XAxis dataKey="Date" stroke={theme.palette.text.secondary} />
           <YAxis stroke={theme.palette.text.secondary}>
             <Label
               angle={270}
@@ -47,7 +56,7 @@ const DailyCountChart: FC<DailyCountChartProps> = ({ title, data }) => {
             </Label>
           </YAxis>
           <Bar
-            dataKey="count"
+            dataKey="Count"
             fill={theme.palette.primary.main}
             stroke={theme.palette.primary.main}
           />
@@ -57,4 +66,4 @@ const DailyCountChart: FC<DailyCountChartProps> = ({ title, data }) => {
   );
 };
 
-export default DailyCountChart;
+export default Atcoder;
