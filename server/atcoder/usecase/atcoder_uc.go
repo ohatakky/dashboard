@@ -31,9 +31,8 @@ func (uc *atcoderUsecase) SubmissionsDaily(submissions []atcoder.Submission) ([]
 	layout := "2006-01-02"
 	aggregates := make(map[string]int)
 	from := time.Unix(int64(submissions[0].EpochSecond), 0)
-	to := time.Unix(int64(submissions[len(submissions)-1].EpochSecond), 0)
-
-	for d := from; d.Year() <= to.Year() && d.Month() <= to.Month() && d.Day() <= to.Day(); d = d.AddDate(0, 0, 1) {
+	to := time.Now()
+	for d := from; !d.After(to); d = d.AddDate(0, 0, 1) {
 		dateFmt := d.Format(layout)
 		aggregates[dateFmt] = 0
 	}

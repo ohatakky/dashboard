@@ -14,11 +14,9 @@ import (
 	noHttp "github.com/ohatakky/dashboard/server/note/handler/http"
 	noUsecase "github.com/ohatakky/dashboard/server/note/usecase"
 	twHttp "github.com/ohatakky/dashboard/server/twitter/handler/http"
-	twRepo "github.com/ohatakky/dashboard/server/twitter/repository"
 	twUsecase "github.com/ohatakky/dashboard/server/twitter/usecase"
 
 	"github.com/ohatakky/dashboard/server/pkg/atcoder"
-	"github.com/ohatakky/dashboard/server/pkg/twitter"
 	"github.com/ohatakky/dashboard/server/project/configs"
 	"github.com/ohatakky/dashboard/server/project/singleton"
 )
@@ -49,9 +47,7 @@ func main() {
 	}
 	{
 		singleton.InitTwitter()
-		client := twitter.NewClient(configs.E.Twitter.SpreadsheetID, configs.E.Twitter.SheetName)
-		repo := twRepo.NewTwitterRepository(client)
-		uc := twUsecase.NewTwitterUsecase(repo)
+		uc := twUsecase.NewTwitterUsecase()
 		twHttp.NewHttpTwitterHandler(mux, uc)
 	}
 

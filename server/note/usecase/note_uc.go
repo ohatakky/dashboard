@@ -38,8 +38,8 @@ func (uc *noteUsecase) PostsDaily(postsPager []note.Posts) ([]PostsDailyResponse
 	layout := "2006-01-02"
 	aggregates := make(map[string]int)
 	from := tmp[len(tmp)-1].PublishAt
-	to := tmp[0].PublishAt
-	for d := from; d.Year() <= to.Year() && d.Month() <= to.Month() && d.Day() <= to.Day(); d = d.AddDate(0, 0, 1) {
+	to := time.Now()
+	for d := from; !d.After(to); d = d.AddDate(0, 0, 1) {
 		dateFmt := d.Format(layout)
 		aggregates[dateFmt] = 0
 	}

@@ -9,6 +9,7 @@ import Title from "~/components/common/Title";
 import Copyright from "~/components/common/Copyright";
 import Atcoder from "./Atcoder";
 import Note from "./Note";
+import Twitter from "./Twitter";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -36,6 +37,11 @@ const Summary: FC = () => {
         <Grid item xs={12} md={12} lg={12}>
           <Paper className={fixedHeightPaper}>
             <Atcoder />
+          </Paper>
+        </Grid>
+        <Grid item xs={12} md={12} lg={12}>
+          <Paper className={fixedHeightPaper}>
+            <Twitter />
           </Paper>
         </Grid>
         <Grid item xs={12} md={12} lg={12}>

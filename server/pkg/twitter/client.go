@@ -70,7 +70,16 @@ func (c *Client) Tweets() ([]Tweet, error) {
 			}
 			switch i {
 			case 0:
-				// tmp.CreatedAt = t
+				// todo: refactor
+				idx := strings.Index(t, " at")
+				createdAt := t[0:idx]
+				mIdx := strings.Index(t, " ")
+				createdAt = createdAt[0:3] + createdAt[mIdx:]
+				at, err := time.Parse("Jan 02, 2006", createdAt)
+				if err != nil {
+					return nil, err
+				}
+				tmp.CreatedAt = at
 			case 1:
 				tmp.Text = t
 			}
