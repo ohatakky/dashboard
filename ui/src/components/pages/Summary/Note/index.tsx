@@ -46,7 +46,10 @@ const Note: FC = () => {
           }}
         >
           <XAxis dataKey="date" stroke={theme.palette.text.secondary} />
-          <YAxis stroke={theme.palette.text.secondary}>
+          <YAxis
+            stroke={theme.palette.text.secondary}
+            ticks={[0, 1, 2, 3, 4, 5]}
+          >
             <Label
               angle={270}
               position="left"
