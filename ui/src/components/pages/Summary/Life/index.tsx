@@ -70,7 +70,7 @@ const Life: FC = () => {
   useEffect(() => {
     const getLifes = async () => {
       const { response, error } = await apiClient.get<Life[]>(
-        `${API_HOST}/life`
+        `${API_HOST}/life`,
       );
       if (error) return;
       setLifes(response);
@@ -83,22 +83,22 @@ const Life: FC = () => {
       <Table size="small">
         <TableHead>
           <TableRow>
-            <TableCell className={classes.cell}>日付</TableCell>
-            <TableCell className={classes.cell}>調子</TableCell>
-            <TableCell className={classes.cell}>起床</TableCell>
-            <TableCell className={classes.cell}>睡眠時間</TableCell>
-            <TableCell className={classes.cell}>消灯</TableCell>
-            <TableCell className={classes.cell}>風呂</TableCell>
-            <TableCell className={classes.cell}>満腹度</TableCell>
-            <TableCell className={classes.cell}>ビタミン剤</TableCell>
-            <TableCell className={classes.cell}>天気</TableCell>
-            <TableCell className={classes.cell}>勤務時間</TableCell>
-            <TableCell className={classes.cell}>精進</TableCell>
-            <TableCell className={classes.cell}>趣味</TableCell>
-            <TableCell className={classes.cell}>徒歩</TableCell>
-            <TableCell className={classes.cell}>ランニング</TableCell>
+            <TableCell className={classes.cell}>date</TableCell>
+            <TableCell className={classes.cell}>condition</TableCell>
+            <TableCell className={classes.cell}>gets up</TableCell>
+            <TableCell className={classes.cell}>sleep</TableCell>
+            <TableCell className={classes.cell}>lights off</TableCell>
+            <TableCell className={classes.cell}>bath</TableCell>
+            <TableCell className={classes.cell}>fullness</TableCell>
+            <TableCell className={classes.cell}>vitamin pill</TableCell>
+            <TableCell className={classes.cell}>weather</TableCell>
+            <TableCell className={classes.cell}>working</TableCell>
+            <TableCell className={classes.cell}>effort</TableCell>
+            <TableCell className={classes.cell}>hobby</TableCell>
+            <TableCell className={classes.cell}>walking</TableCell>
+            <TableCell className={classes.cell}>running</TableCell>
             <TableCell align="right" className={classes.cell}>
-              Burpee Jump
+              burpee jump
             </TableCell>
           </TableRow>
         </TableHead>

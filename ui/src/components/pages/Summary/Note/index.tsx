@@ -24,7 +24,7 @@ const Note: FC = () => {
   useEffect(() => {
     const getPosts = async () => {
       const { response, error } = await apiClient.get<Post[]>(
-        `${API_HOST}/note`
+        `${API_HOST}/note`,
       );
       if (error) return;
       setPosts(response);
@@ -58,7 +58,7 @@ const Note: FC = () => {
                 fill: theme.palette.text.secondary,
               }}
             >
-              投稿数
+              publishes
             </Label>
           </YAxis>
           <Bar

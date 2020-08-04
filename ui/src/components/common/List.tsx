@@ -4,8 +4,8 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import DashboardIcon from "@material-ui/icons/Dashboard";
 import FilterHdrIcon from "@material-ui/icons/FilterHdr";
-import FitnessCenterIcon from "@material-ui/icons/FitnessCenter";
 import BarChartIcon from "@material-ui/icons/BarChart";
+import SubjectIcon from "@material-ui/icons/Subject";
 
 export const BasicList: FC = () => (
   <Fragment>
@@ -17,21 +17,21 @@ export const BasicList: FC = () => (
     </ListItem>
     <ListItem button disabled>
       <ListItemIcon>
-        <FitnessCenterIcon />
+        <BarChartIcon />
       </ListItemIcon>
-      <ListItemText primary="Progress" />
+      <ListItemText primary="Record" />
     </ListItem>
     <ListItem button disabled>
       <ListItemIcon>
         <FilterHdrIcon />
       </ListItemIcon>
-      <ListItemText primary="Climbing" />
+      <ListItemText primary="Climb" />
     </ListItem>
     <ListItem button disabled>
       <ListItemIcon>
-        <BarChartIcon />
+        <SubjectIcon />
       </ListItemIcon>
-      <ListItemText primary="Records" />
+      <ListItemText primary="Report" />
     </ListItem>
   </Fragment>
 );

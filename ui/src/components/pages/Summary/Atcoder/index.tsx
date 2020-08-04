@@ -24,7 +24,7 @@ const Atcoder: FC = () => {
   useEffect(() => {
     const getSubmissions = async () => {
       const { response, error } = await apiClient.get<Submission[]>(
-        `${API_HOST}/atcoder`
+        `${API_HOST}/atcoder`,
       );
       if (error) return;
       setSubmissions(response);
@@ -55,7 +55,7 @@ const Atcoder: FC = () => {
                 fill: theme.palette.text.secondary,
               }}
             >
-              提出数
+              submissions
             </Label>
           </YAxis>
           <Bar

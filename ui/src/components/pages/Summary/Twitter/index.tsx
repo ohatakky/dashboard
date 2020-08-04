@@ -24,7 +24,7 @@ const Twitter: FC = () => {
   useEffect(() => {
     const getTweets = async () => {
       const { response, error } = await apiClient.get<Tweet[]>(
-        `${API_HOST}/twitter`
+        `${API_HOST}/twitter`,
       );
       if (error) return;
       setTweets(response);
@@ -55,7 +55,7 @@ const Twitter: FC = () => {
                 fill: theme.palette.text.secondary,
               }}
             >
-              ツイート数
+              tweets
             </Label>
           </YAxis>
           <Bar
