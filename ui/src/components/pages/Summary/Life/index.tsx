@@ -112,7 +112,9 @@ const Life: FC = () => {
               <TableCell>
                 {!row.rising.valid && timeFormat(row.rising.time)}
               </TableCell>
-              <TableCell>{!row.sleep.valid && row.sleep.float}</TableCell>
+              <TableCell>
+                {!row.sleep.valid && `${row.sleep.float} h`}
+              </TableCell>
               <TableCell>
                 {!row.light_off.valid && row.light_off.bool ? "yes" : "no"}
               </TableCell>
@@ -140,7 +142,7 @@ const Life: FC = () => {
                 {!row.workout_r.valid && `${row.workout_r.float} km`}
               </TableCell>
               <TableCell align="right">
-                {!row.workout_b.valid && `${row.workout_b.int} times`}
+                {!row.workout_b.valid && `${row.workout_b.int} 回`}
               </TableCell>
             </TableRow>
           ))}

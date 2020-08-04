@@ -24,7 +24,7 @@ const Twitter: FC = () => {
   useEffect(() => {
     const getTweets = async () => {
       const { response, error } = await apiClient.get<Tweet[]>(
-        `${API_HOST}/twitter`,
+        `${API_HOST}/twitter`
       );
       if (error) return;
       setTweets(response);
@@ -50,9 +50,12 @@ const Twitter: FC = () => {
             <Label
               angle={270}
               position="left"
-              style={{ textAnchor: "middle", fill: theme.palette.text.primary }}
+              style={{
+                textAnchor: "middle",
+                fill: theme.palette.text.secondary,
+              }}
             >
-              Count
+              ツイート数
             </Label>
           </YAxis>
           <Bar
