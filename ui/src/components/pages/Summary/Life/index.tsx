@@ -7,11 +7,12 @@ import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import apiClient from "~/utils/api";
+import { dateFormat, timeFormat } from "~/utils/format";
 import { API_HOST } from "~/utils/constants";
 import Title from "~/components/common/Title";
 
 type Time = {
-  time: Date;
+  time: string;
   valid: boolean;
 };
 
@@ -54,6 +55,9 @@ type Life = {
 };
 
 const useStyles = makeStyles((theme) => ({
+  cell: {
+    minWidth: "120px",
+  },
   seeMore: {
     marginTop: theme.spacing(3),
   },
@@ -66,7 +70,7 @@ const Life: FC = () => {
   useEffect(() => {
     const getLifes = async () => {
       const { response, error } = await apiClient.get<Life[]>(
-        `${API_HOST}/life`,
+        `${API_HOST}/life`
       );
       if (error) return;
       setLifes(response);
@@ -79,42 +83,64 @@ const Life: FC = () => {
       <Table size="small">
         <TableHead>
           <TableRow>
-            <TableCell>Date</TableCell>
-            <TableCell>Condition</TableCell>
-            <TableCell>Rising</TableCell>
-            <TableCell>Sleep</TableCell>
-            <TableCell>Light Off</TableCell>
-            <TableCell>Bath</TableCell>
-            <TableCell>Fullnes</TableCell>
-            <TableCell>Vitamin</TableCell>
-            <TableCell>Weather</TableCell>
-            <TableCell>Hunting</TableCell>
-            <TableCell>Devotion</TableCell>
-            <TableCell>Hobby</TableCell>
-            <TableCell>WorkoutW</TableCell>
-            <TableCell>WorkoutR</TableCell>
-            <TableCell align="right">WorkoutB</TableCell>
+            <TableCell className={classes.cell}>日付</TableCell>
+            <TableCell className={classes.cell}>調子</TableCell>
+            <TableCell className={classes.cell}>起床</TableCell>
+            <TableCell className={classes.cell}>睡眠時間</TableCell>
+            <TableCell className={classes.cell}>消灯</TableCell>
+            <TableCell className={classes.cell}>風呂</TableCell>
+            <TableCell className={classes.cell}>満腹度</TableCell>
+            <TableCell className={classes.cell}>ビタミン剤</TableCell>
+            <TableCell className={classes.cell}>天気</TableCell>
+            <TableCell className={classes.cell}>勤務時間</TableCell>
+            <TableCell className={classes.cell}>精進</TableCell>
+            <TableCell className={classes.cell}>趣味</TableCell>
+            <TableCell className={classes.cell}>徒歩</TableCell>
+            <TableCell className={classes.cell}>ランニング</TableCell>
+            <TableCell align="right" className={classes.cell}>
+              Burpee Jump
+            </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {lifes.map((row, i) => (
             <TableRow key={i}>
-              <TableCell>{row.date.time}</TableCell>
-              <TableCell>{row.condition.int}</TableCell>
-              <TableCell>{row.rising.time}</TableCell>
-              <TableCell>{row.sleep.float}</TableCell>
-              <TableCell>{row.light_off.bool}</TableCell>
-              <TableCell>{row.bath.time}</TableCell>
-              <TableCell>{row.fullness.int}</TableCell>
-              <TableCell>{row.vitamin.bool}</TableCell>
-              <TableCell>{row.weather.string}</TableCell>
-              <TableCell>{`${row.hunting.float} h`}</TableCell>
-              <TableCell>{`${row.devotion.float} h`}</TableCell>
-              <TableCell>{`${row.hobby.float} h`}</TableCell>
-              <TableCell>{`${row.workout_w.float} h`}</TableCell>
-              <TableCell>{`${row.workout_r.float} km`}</TableCell>
+              <TableCell>
+                {!row.date.valid && dateFormat(row.date.time)}
+              </TableCell>
+              <TableCell>{!row.condition.valid && row.condition.int}</TableCell>
+              <TableCell>
+                {!row.rising.valid && timeFormat(row.rising.time)}
+              </TableCell>
+              <TableCell>{!row.sleep.valid && row.sleep.float}</TableCell>
+              <TableCell>
+                {!row.light_off.valid && row.light_off.bool ? "yes" : "no"}
+              </TableCell>
+              <TableCell>
+                {!row.bath.valid && timeFormat(row.bath.time)}
+              </TableCell>
+              <TableCell>{!row.fullness.valid && row.fullness.int}</TableCell>
+              <TableCell>
+                {!row.vitamin.valid && row.vitamin.bool ? "yes" : "no"}
+              </TableCell>
+              <TableCell>{!row.weather.valid && row.weather.string}</TableCell>
+              <TableCell>
+                {!row.hunting.valid && `${row.hunting.float} h`}
+              </TableCell>
+              <TableCell>
+                {!row.devotion.valid && `${row.devotion.float} h`}
+              </TableCell>
+              <TableCell>
+                {!row.hobby.valid && `${row.hobby.float} h`}
+              </TableCell>
+              <TableCell>
+                {!row.workout_w.valid && `${row.workout_w.float} h`}
+              </TableCell>
+              <TableCell>
+                {!row.workout_r.valid && `${row.workout_r.float} km`}
+              </TableCell>
               <TableCell align="right">
-                {`${row.workout_b.int} times`}
+                {!row.workout_b.valid && `${row.workout_b.int} times`}
               </TableCell>
             </TableRow>
           ))}

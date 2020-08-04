@@ -114,6 +114,11 @@ func (c *Client) Records() ([]Record, error) {
 			return nil, err
 		}
 
+		jst, err := time.LoadLocation("Asia/Tokyo")
+		if err != nil {
+			return nil, err
+		}
+
 		tmp := Record{}
 		for i, v := range record {
 			var null bool
@@ -126,7 +131,7 @@ func (c *Client) Records() ([]Record, error) {
 				if null {
 					continue
 				}
-				tmp.Date.Time, err = time.Parse(dateLayout, v)
+				tmp.Date.Time, err = time.ParseInLocation(dateLayout, v, jst)
 				if err != nil {
 					return nil, err
 				}
@@ -144,7 +149,7 @@ func (c *Client) Records() ([]Record, error) {
 				if null {
 					continue
 				}
-				tmp.Rising.Time, err = time.Parse(timeLayout, v)
+				tmp.Rising.Time, err = time.ParseInLocation(timeLayout, v, jst)
 				if err != nil {
 					return nil, err
 				}
@@ -169,7 +174,7 @@ func (c *Client) Records() ([]Record, error) {
 				if null {
 					continue
 				}
-				tmp.Bath.Time, err = time.Parse(timeLayout, v)
+				tmp.Bath.Time, err = time.ParseInLocation(timeLayout, v, jst)
 				if err != nil {
 					return nil, err
 				}
