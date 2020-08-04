@@ -9,49 +9,7 @@ import apiClient from "~/utils/api";
 import { dateFormat, timeFormat } from "~/utils/format";
 import { API_HOST } from "~/utils/constants";
 import Title from "~/components/common/Title";
-
-type Time = {
-  time: string;
-  valid: boolean;
-};
-
-type String = {
-  string: string;
-  valid: boolean;
-};
-
-type Int = {
-  int: number;
-  valid: boolean;
-};
-
-type Float = {
-  float: number;
-  valid: boolean;
-};
-
-type Bool = {
-  bool: boolean;
-  valid: boolean;
-};
-
-type Life = {
-  date: Time;
-  condition: Int;
-  rising: Time;
-  sleep: Float;
-  light_off: Bool;
-  bath: Time;
-  fullness: Int;
-  vitamin: Bool;
-  weather: String;
-  hunting: Float;
-  devotion: Float;
-  hobby: Float;
-  workout_w: Float;
-  workout_r: Float;
-  workout_b: Int;
-};
+import { Life } from "~/utils/types";
 
 const useStyles = makeStyles(() => ({
   cell: {
@@ -59,7 +17,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const Life: FC = () => {
+const LifeFC: FC = () => {
   const classes = useStyles();
   const [lifes, setLifes] = useState<Life[]>([]);
 
@@ -149,4 +107,4 @@ const Life: FC = () => {
   );
 };
 
-export default Life;
+export default LifeFC;
