@@ -64,9 +64,7 @@ const Summary: FC = () => {
           <Paper className={fixedHeightPaper}>
             <Title>Github</Title>
             <a href="https://github.com/ohatakky" target="_blank">
-              <img
-                src="https://github-readme-stats.vercel.app/api?username=ohatakky&count_private=true&hide=contribs,prs,issues,stars"
-              />
+              <img src="https://github-readme-stats.vercel.app/api?username=ohatakky&count_private=true&hide=contribs,prs,issues,stars" />
             </a>
           </Paper>
         </Grid>
