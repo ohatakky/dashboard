@@ -1,5 +1,4 @@
-import React, { FC, useState, useEffect } from "react";
-import Link from "@material-ui/core/Link";
+import React, { FC, Fragment, useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -54,12 +53,9 @@ type Life = {
   workout_b: Int;
 };
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   cell: {
     minWidth: "120px",
-  },
-  seeMore: {
-    marginTop: theme.spacing(3),
   },
 }));
 
@@ -70,15 +66,16 @@ const Life: FC = () => {
   useEffect(() => {
     const getLifes = async () => {
       const { response, error } = await apiClient.get<Life[]>(
-        `${API_HOST}/life`,
+        `${API_HOST}/life`
       );
       if (error) return;
       setLifes(response);
     };
     getLifes();
   }, []);
+
   return (
-    <React.Fragment>
+    <Fragment>
       <Title>Life</Title>
       <Table size="small">
         <TableHead>
@@ -148,12 +145,7 @@ const Life: FC = () => {
           ))}
         </TableBody>
       </Table>
-      <div className={classes.seeMore}>
-        <Link color="primary" href="#" onClick={(e) => e.preventDefault()}>
-          See Charts
-        </Link>
-      </div>
-    </React.Fragment>
+    </Fragment>
   );
 };
 
