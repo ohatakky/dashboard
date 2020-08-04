@@ -5,29 +5,29 @@ import Typography from "@material-ui/core/Typography";
 import Title from "~/components/common/Title";
 
 const useStyles = makeStyles({
-  depositContext: {
+  cardContext: {
     flex: 1,
   },
 });
 
-const Deposit: FC = () => {
+const Card: FC<{ title: string }> = ({ title }) => {
   const classes = useStyles();
   return (
     <React.Fragment>
-      <Title>Recent Deposits</Title>
+      <Title>{title}</Title>
       <Typography component="p" variant="h4">
-        $3,024.00
+        {}
       </Typography>
-      <Typography color="textSecondary" className={classes.depositContext}>
-        on 15 March, 2019
+      <Typography color="textSecondary" className={classes.cardContext}>
+        {}
       </Typography>
       <div>
         <Link color="primary" href="#" onClick={(e) => e.preventDefault()}>
-          View balance
+          {}
         </Link>
       </div>
     </React.Fragment>
   );
 };
 
-export default Deposit;
+export default Card;
