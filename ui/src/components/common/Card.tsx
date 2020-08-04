@@ -10,22 +10,27 @@ const useStyles = makeStyles({
   },
 });
 
-const Card: FC<{ title: string }> = ({ title }) => {
+const Card: FC<{ title: string; average: number; correlation?: number }> = ({
+  title,
+  average,
+  correlation,
+}) => {
   const classes = useStyles();
   return (
     <React.Fragment>
       <Title>{title}</Title>
-      <Typography component="p" variant="h4">
-        {}
+      <Typography component="p" variant="h5">
+        Average
       </Typography>
       <Typography color="textSecondary" className={classes.cardContext}>
-        {}
+        {`${average.toFixed(2)} h`}
       </Typography>
-      <div>
-        <Link color="primary" href="#" onClick={(e) => e.preventDefault()}>
-          {}
-        </Link>
-      </div>
+      <Typography component="p" variant="h5">
+        Correlation Coefficient
+      </Typography>
+      <Typography color="textSecondary" className={classes.cardContext}>
+        {correlation ? correlation : ""}
+      </Typography>
     </React.Fragment>
   );
 };

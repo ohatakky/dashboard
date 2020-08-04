@@ -1,3 +1,3 @@
-import Sleep from "./Sleep";
+import Sleep, { Data as SleepData } from "./Sleep";
 
-export { Sleep };
+export { Sleep, SleepData };

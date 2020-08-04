@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect } from "react";
+import React, { FC, Fragment, useState, useEffect } from "react";
 import { useTheme } from "@material-ui/core/styles";
 import {
   BarChart,
@@ -24,7 +24,7 @@ const Twitter: FC = () => {
   useEffect(() => {
     const getTweets = async () => {
       const { response, error } = await apiClient.get<Tweet[]>(
-        `${API_HOST}/twitter`,
+        `${API_HOST}/twitter`
       );
       if (error) return;
       setTweets(response);
@@ -33,7 +33,7 @@ const Twitter: FC = () => {
   }, []);
 
   return (
-    <React.Fragment>
+    <Fragment>
       <Title>Twitter</Title>
       <ResponsiveContainer>
         <BarChart
@@ -65,7 +65,7 @@ const Twitter: FC = () => {
           />
         </BarChart>
       </ResponsiveContainer>
-    </React.Fragment>
+    </Fragment>
   );
 };
 
