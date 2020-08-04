@@ -23,7 +23,7 @@ const Card: FC<{ title: string; average: number; correlation?: number }> = ({
         Average
       </Typography>
       <Typography color="textSecondary" className={classes.cardContext}>
-        {`${average.toFixed(2)} h`}
+        {average.toFixed(2)}
       </Typography>
       <Typography component="p" variant="h5">
         Correlation Coefficient

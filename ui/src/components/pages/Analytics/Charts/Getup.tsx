@@ -13,17 +13,17 @@ import Title from "~/components/common/Title";
 export type Data = {
   date: string;
   condition: number;
-  sleep: number;
+  rising: number;
 };
 
-type SleepProps = {
+type GetupProps = {
   data: Data[];
 };
 
-const Sleep: FC<SleepProps> = ({ data }) => {
+const Getup: FC<GetupProps> = ({ data }) => {
   return (
     <Fragment>
-      <Title>Sleep</Title>
+      <Title>Getup</Title>
       <ComposedChart
         width={600}
         height={300}
@@ -39,13 +39,23 @@ const Sleep: FC<SleepProps> = ({ data }) => {
         <XAxis dataKey="date" />
         <YAxis
           yAxisId={1}
-          ticks={[...Array(12)].map((_, i) => i + 1)}
           orientation="right"
+          // label={{ value: "get up [h.m]", angle: -90, color: "#413ea0" }}
+          ticks={[...Array(24)].map((_, i) => i + 1)}
         />
-        <YAxis yAxisId={2} ticks={[...Array(10)].map((_, i) => i + 1)} />
+        <YAxis
+          yAxisId={2}
+          // label={{ value: "condition [10]", angle: -90, color: "#ff7300" }}
+          ticks={[...Array(10)].map((_, i) => i + 1)}
+        />
         <Tooltip />
         <Legend />
-        <Line yAxisId={1} dataKey="sleep" type="monotone" stroke="#413ea0" />
+        <Line
+          yAxisId={1}
+          dataKey="rising"
+          type="monotone"
+          stroke="#413ea0"
+        />
         <Line
           yAxisId={2}
           dataKey="condition"
@@ -57,4 +67,6 @@ const Sleep: FC<SleepProps> = ({ data }) => {
   );
 };
 
-export default Sleep;
+export default Getup;
+
+// tickFormatter={(unixTime) => timeFormat(unixTime)}
